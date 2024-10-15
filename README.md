@@ -1,1 +1,1 @@
-Refer to the solution guide for installations & FAQS.
+Follow the steps mentioned in the Oversharing Script deployment guide for detailed instruction on usage.
