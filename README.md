@@ -24,7 +24,7 @@ installation and execution of Oversharing Script.
 
 ## Oversharing script architecture
 
-![](media/SolutionArchitecture.png)
+![](/Oversharing/media/SolutionArchitecture.png)
 
 Oversharing script is a simple implementation to discover overshared
 information within an M365 tenant. The script uses SharePoint online
@@ -36,15 +36,13 @@ a.  Script only can process information which is made searchable within
     has been disabled i.e.
 
 ![A screenshot of a computer Description automatically
-generated](media/SPOSearchConfiguration.png){width="5.647833552055993in"
-height="1.6622287839020122in"}
+generated](/Oversharing/media/SPOSearchConfiguration.png)
 
-Fig. Site Collection Search Setting
+***<p style="text-align:center;">Fig. Site Collection Search Setting</p>***
 
-![](media/SPOSearchLibConfiguration.png){width="3.7916666666666665in"
-height="3.2083333333333335in"}
+![](/Oversharing/media/SPOSearchLibConfiguration.png)
 
-Fig. SharePoint Library Search Setting
+***<p style="text-align:center;">Fig. SharePoint Library Search Setting</p>***
 
 b.  Script can be customized to target different scenarios for ex: only
     discover information from specific sites, sites with specific
@@ -100,8 +98,7 @@ required]{.underline}**) in Azure Entra which we will be using to run
 the oversharing script to scan and report on items which are accessible
 to everyone with organisation.
 
-**[NOTE:]{.underline}** Make sure this user account is not given access
-to any M365 resources.
+**NOTE:** Make sure this user account is not given access to any M365 resources.
 
 ### Authentication
 
@@ -112,50 +109,39 @@ Information](https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/
 
 **[Note: If reporting on SPO resources accessible to externals/anonymous
 is not required then we don't need to do below mentioned
-steps.]{.underline}**
+steps.]**
 
 #### Microsoft Entra App Registration & Permission configuration
+ 
 
--   
+- Navigate to <https://entra.microsoft.com/> and click on "App Registration"
 
-> Navigate to <https://entra.microsoft.com/> and click on "App
-> Registration".![A screenshot of a computer Description automatically
-> generated](media/image4.png){width="1.3721412948381453in"
-> height="3.3116119860017497in"}
+![](/Oversharing/media/EntraAppRegistration.png)
 
--   
+- Click "New Registration" and fill in the details and click "Register".
 
-> Click "New Registration" and fill in the details and click "Register".
->
-> ![](media/image5.png){width="4.7985400262467195in"
-> height="1.9183902012248468in"}
->
-> ![](media/image6.png){width="4.729166666666667in" height="4.53125in"}
+![](/Oversharing/media/EntraAppRegistration1.png)
 
--   
+![](/Oversharing/media/EntraAppRegistration2.png)
 
-> *[Copy the "Application ID" as we would need this for our Oversharing
-> Script execution.]{.underline}*![](media/image7.png){width="4.4375in"
-> height="2.0520833333333335in"}
+  
 
--   
+> *Copy the "Application ID" as we would need this for our OversharingScript execution.*![](/Oversharing/media/EntraAppRegistration3.png)
 
-> Navigate to "API Permissions", "Add a permission", and then
-> "SharePoint"
->
-> ![](media/image8.png){width="5.813531277340332in"
-> height="2.8229166666666665in"}
+-  Navigate to "API Permissions", "Add a permission", and then "SharePoint"
+  ![](/Oversharing/media/EntraAppRegistration4.png)
 
 -   Click on "Application permissions" 🡪 "Sites.Read.All" and click "Add permission"
->
-> ![](media/image9.png){width="4.375in" height="4.46875in"}
 
--   Click "Grant admin Consent for ......" and complete the consent process.Your API permissions should now display as below:
+ ![](/Oversharing/media/EntraAppRegistration5.png)
 
-![](media/image10.png){width="4.575694444444444in"
-height="0.5597222222222222in"}
+-   Click "Grant admin Consent for ......" and complete the consent process.<br/>
 
-#### Microsoft Entra App certificate
+Your API permissions should now display as below:
+
+![](/Oversharing/media/EntraAppRegistrationPermission.png)
+
+### Microsoft Entra App certificate
 
 When wanting to use certificate-based authentication for M365 Entra App
 to connect to SPO/ODFB, follow steps defined in below link to generate a
@@ -167,8 +153,7 @@ App-Only](https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/sec
 Once certificate is generated, upload the "**.cer**" file to the App
 registered in step#2.2.1.1
 
-![](media/image11.png){width="4.677083333333333in"
-height="3.6458333333333335in"}
+![](/Oversharing/media/EntraAppRegistration6.png)
 
 ## Oversharing script execution 
 
@@ -183,26 +168,15 @@ Oversharing script has 2 operation modes which are mentioned below:
 For this scenario, oversharing script will require below mandatory
 information
 
-  ----------------------------------------------------------------------------------------------------------------------------
-  Parameter Name                      Details
-  ----------------------------------- ----------------------------------------------------------------------------------------
-  SPTenantName                        SharePoint Tenant Name. If you SPO Admin Url is
-                                      [https://[contoso]{.mark}-admin.sharepoint.com](https://contoso-admin.sharepoint.com),
-                                      then tenant name is "Contoso"
+| Parameter Name   | Details |
+| ------------- | ------------- |
+| SPTenantName  | SharePoint Tenant Name. If you SPO Admin Url is (https://contoso-admin.sharepoint.com) then tenant name is "Contoso"  |
+| PnPEnterpriseAppId  | Provide the PnP Enterprise App ID as per the new authentication model added in PnP.PowerShell module when using interactive login (https://pnp.github.io/powershell/articles/registerapplication)  |
+| ScanAccessibleToEveryone  | Switch to specify scanning to be done for all data accessible to everyone within organization  |
+| outputreportpath  | Local path on the machine where the reports will be downloaded  |
+| Logpath  | Local path on the machine to output the script execution log  |
 
-  PnPEnterpriseAppId                  Provide the PnP Enterprise App ID as per the new authentication model added in
-                                      PnP.PowerShell module when using interactive login ([more
-                                      info](https://pnp.github.io/powershell/articles/registerapplication))
-
-  ScanAccessibleToEveryone            Switch to specify scanning to be done for all data accessible to everyone within
-                                      organization
-
-  outputreportpath                    Local path on the machine where the reports will be downloaded
-
-  Logpath                             Local path on the machine to output the script execution log
-  ----------------------------------------------------------------------------------------------------------------------------
-
-**[Example:]{.underline}**
+**Example:**
 
 .\\GenerateOversharedDataReportV3.ps1 -SPTenantName \"contoso\"
 -TenantID \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"
@@ -220,49 +194,35 @@ generated during step#2.1.5.2 is installed on the local machine from
 where the oversharing script will be executed. To install the ".pfx"
 file, follow below steps
 
--   
+- Double click ".pfx" file<br/>
 
-Double click ".pfx" file
-![](media/image12.png){width="3.065825678040245in"
-height="2.4799715660542434in"}
+![](/Oversharing/media/authcertImport.png)
 
-![](media/image13.png){width="2.752083333333333in"
-height="2.7118055555555554in"}
+![](/Oversharing/media/authcertImport1.png)
 
--   
 
-Enter the password that was set at the time of certificate
-generation.![](media/image14.png){width="2.7756944444444445in"
-height="2.6479166666666667in"}
+- Enter the password that was set at the time of certificate generation.
 
-![](media/image15.png){width="2.736111111111111in"
-height="2.6083333333333334in"}
+![](/Oversharing/media/authcertImport2.png)
 
-![](media/image16.png){width="2.7756944444444445in"
-height="2.7041666666666666in"}
+![](/Oversharing/media/authcertImport3.png)
+
+![](/Oversharing/media/authcertImport4.png)
 
 For above scenario, oversharing script will require below mandatory
 information
 
-  ----------------------------------------------------------------------------------------------------------------------------
-  Parameter Name                      Details
-  ----------------------------------- ----------------------------------------------------------------------------------------
-  SPTenantName                        SharePoint Tenant Name. If you SPO Admin Url is
-                                      [https://[contoso]{.mark}-admin.sharepoint.com](https://contoso-admin.sharepoint.com),
-                                      then tenant name is "Contoso"
+| Parameter Name   | Details |
+| ------------- | ------------- |
+| SPTenantName  | SharePoint Tenant Name. If you SPO Admin Url is (https://contoso-admin.sharepoint.com) then tenant name is "Contoso"  |
+| ClientID      | M365 App Entra ID created above |
+| Thumbprint    | M365 App Certificate thumbprint created above |
+| ScanAccessibleToExternalsAndAnonymous  | Switch to specify scanning to be done for all data accessible to external and anonymous  |
+| outputreportpath  | Local path on the machine where the reports will be downloaded  |
+| Logpath  | Local path on the machine to output the script execution log  |
 
-  ClientID                            M365 App Entra ID created in step#2.1.5.1
 
-  Thumbprint                          M365 App Certificate thumbprint created in step#2.1.5.2
-
-  TenantID                            M365 Tenant ID
-
-  outputreportpath                    Local path on the machine where the reports will be downloaded
-
-  Logpath                             Local path on the machine to output the script execution log
-  ----------------------------------------------------------------------------------------------------------------------------
-
-**[Example:]{.underline}**
+**Example:**
 
 .\\GenerateOversharedDataReportV3.ps1 -SPTenantName \"contoso\"
 -TenantID \"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"
