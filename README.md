@@ -267,3 +267,7 @@ script i.e.<br />
     a.  Internet connection speed<br />
     b.  Network configuration<br />
     c.  Number of metadata
+
+
+# Reading the report
+Sample report in this solution outlines the columns that are generated when you run this solution. The columns will help identify the SPO resources which have been overshared. Using the details from the report, remediation activities can be carried out.
